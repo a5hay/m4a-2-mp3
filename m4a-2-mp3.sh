@@ -1,0 +1,37 @@
+#!/bin/bash
+
+source config.cfg
+
+IFS=',' read -ra newarray <<< "$paths"
+
+#Counter used for calculating the percentage of process completion
+NEWCOUNTER=1
+
+#Default quality is medium
+QUALITY_NO=2
+
+#decide what quality the user wants
+if [[ "$quality" == "high" ]]; then
+    QUALITY_NO=1
+elif [[ "$quality" == "low" ]]; then
+    QUALITY_NO=4
+fi
+
+echo $QUALITY_NO
+#temp counter to get the total number of files
+COUNTER=0
+
+for element in "${newarray[@]}"; do
+    newcount=$(find "$element"/*.m4a -maxdepth 1 -type f|wc -l)
+    let COUNTER=COUNTER+newcount
+done
+for element in "${newarray[@]}"; do
+    for f in "$element"/*.m4a; do 
+        echo  -e "\033[31;5mConverting : \033[0m $f"
+        percentage=$(echo "scale=2; $NEWCOUNTER/$COUNTER * 100" | bc)
+        ffmpeg -i "$f" -codec:v copy -codec:a libmp3lame -q:a $QUALITY_NO "${f%.m4a}.mp3" > /dev/null 2>&1 
+        echo  -e "\033[32;5mFinished : \033[0m $percentage %" 
+        let NEWCOUNTER+=1
+    done
+done
+echo -e "\033[33;5m## DONE ##\033[0m"

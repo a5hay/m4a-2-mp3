@@ -1,5 +1,6 @@
 #!/bin/bash
 
+STARTTIME=$(date +%s)
 source config.cfg
 
 IFS=',' read -ra newarray <<< "$paths"
@@ -17,7 +18,13 @@ elif [[ "$quality" == "low" ]]; then
     QUALITY_NO=4
 fi
 
-echo $QUALITY_NO
+#configure the delete option
+if [[ "$delete" == "true" ]]; then
+    DELETE=true
+else
+    DELETE=false
+fi
+
 #temp counter to get the total number of files
 COUNTER=0
 
@@ -34,4 +41,13 @@ for element in "${newarray[@]}"; do
         let NEWCOUNTER+=1
     done
 done
-echo -e "\033[33;5m## DONE ##\033[0m"
+
+#check if delete is set
+if [[ "$delete" == "true" ]]; then
+    echo  -e "\033[31;5mDeleting all m4a files\033[0m"
+    for element in "${newarray[@]}"; do
+        rm "$element"/*.m4a
+    done
+fi
+ENDTIME=$(date +%s)
+echo -e "\033[33;5mCOMPLETE (Took $(($ENDTIME - $STARTTIME)) seconds)\033[0m"

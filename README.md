@@ -31,6 +31,21 @@ or
 
 (if you change the permissions of the file to executable)
 
+### Example Run
+
+    ashay@e:~/Dropbox/code/m4a-2-mp3$ ./m4a-2-mp3.sh
+    Converting :  /Users/ashay/Music/iTunes/iTunes Media/Podcasts/Above & Beyond_ Group Therapy/#132 Group Therapy Radio with Above & Beyond.m4a
+    Finished :  50.00 %
+    Converting :  /Users/ashay/Music/iTunes/iTunes Media/Podcasts/Gareth Emery_ Electric For Life/Electric For Life 027.m4a
+    Finished :  100.00 %
+    Deleting all m4a files
+    COMPLETE (Took 322 seconds)
+
+### Note
+Currently directory with spaces need to be escaped in the 'paths' option in config.cfg. This case will be handled in upcoming releases
+
+    paths=/Users/ashay/Music/iTunes/iTunes\ Media/Podcasts/Above\ \&\ Beyond_\ Group\ Therapy,/Users/ashay/Music/iTunes/iTunes\ Media/Podcasts/Gareth\ Emery_\ Electric\ For\ Life
+
 ### License
 
 MIT (See Attached)

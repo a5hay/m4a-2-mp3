@@ -22,10 +22,13 @@ This script comes with a config.cfg file which lets you configure 3 options
 
 
 ### Running the script
-After the config file is setup, running the script is as simple as either running 
+After the config file is setup, running the script is as simple as either running
+
     sh m4a-2-mp3.sh 
 or 
+
     ./m4a-2-mp3.sh 
+
 (if you change the permissions of the file to executable)
 
 ### License
